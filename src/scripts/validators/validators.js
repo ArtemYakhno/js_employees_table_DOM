@@ -5,6 +5,8 @@ export function validateAge(age) {
       message: 'Age must be between 18 and 90 years old.',
     };
   }
+
+  return false;
 }
 
 export function validateFullName(fullName) {
@@ -14,6 +16,8 @@ export function validateFullName(fullName) {
       message: 'Name must be between 4 and 40 characters long.',
     };
   }
+
+  return false;
 }
 
 export function validatePosition(position) {
@@ -23,6 +27,8 @@ export function validatePosition(position) {
       message: 'Position must be between 2 and 40 characters long.',
     };
   }
+
+  return false;
 }
 
 export function validateSalary(salary) {
@@ -32,6 +38,8 @@ export function validateSalary(salary) {
       message: 'Salary must be between 0 and 1,000,000.',
     };
   }
+
+  return false;
 }
 
 export function validateOffice(office) {
@@ -41,4 +49,6 @@ export function validateOffice(office) {
       message: 'Office can not be empty.',
     };
   }
+
+  return false;
 }

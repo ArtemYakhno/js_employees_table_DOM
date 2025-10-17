@@ -45,3 +45,15 @@ export function convertToCurrency(amount) {
     maximumFractionDigits: 2,
   });
 }
+
+export function clearErrorNotifications() {
+  const errorNotifications = document.querySelectorAll('.error');
+
+  if (!errorNotifications.length === 0) {
+    return;
+  }
+
+  for (const notification of errorNotifications) {
+    notification.remove();
+  }
+}
