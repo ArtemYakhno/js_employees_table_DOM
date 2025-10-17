@@ -25,7 +25,7 @@ export function sortColumnFactory(state) {
     } else {
       state.lastSortDescending = !state.lastSortDescending;
     }
-    state.lastSortColumn = th.textContent;
+    state.lastSortColumn = th.textContent.trim();
 
     const cmp = buildComparator(
       columnIndex,

@@ -38,6 +38,10 @@ export function hasInvalidNumber(a, b) {
 export function convertToCurrency(amount) {
   const n = Number(amount);
 
+  if (Number.isNaN(n)) {
+    return '';
+  }
+
   return n.toLocaleString('en-US', {
     style: 'currency',
     currency: 'USD',

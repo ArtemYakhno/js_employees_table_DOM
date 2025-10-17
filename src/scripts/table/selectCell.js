@@ -21,7 +21,17 @@ export function selectCellFactory(state) {
     input.type = type;
     input.className = 'cell-input';
     input.name = colName;
-    input.value = colName === 'salary' ? convertToNumber(prev) : prev;
+    input.value = prev;
+
+    if (colName === 'salary') {
+      const formatedSalary = convertToNumber(prev);
+
+      if (!Number.isNaN(formatedSalary)) {
+        input.value = 0;
+      } else {
+        input.value = formatedSalary;
+      }
+    }
 
     state.activeInput = input;
     cell.textContent = '';
@@ -54,13 +64,13 @@ export function selectCellFactory(state) {
           validationError = validateOffice(newValue);
           break;
         case 'age':
-          validationError = validateAge(newValue);
+          validationError = validateAge(Number(newValue));
           break;
         case 'salary':
-          validationError = validateSalary(newValue);
+          validationError = validateSalary(Number(newValue));
 
           if (!validationError) {
-            newValue = convertToCurrency(newValue);
+            newValue = convertToCurrency(Number(newValue));
           }
           break;
         default:

@@ -64,7 +64,7 @@ export function initTableInteractions(table) {
     if (!td) {
       return;
     }
-    makeRowActive(td.parentElement);
+    makeRowActive(td.closest('tr'));
   });
 
   tBody.addEventListener('dblclick', (ev) => {

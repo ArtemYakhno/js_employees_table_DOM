@@ -6,7 +6,7 @@ import { createForm } from './form/createForm.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const table = document.querySelector('table');
-  const form = document.querySelector('form');
+  let form = document.querySelector('form');
 
   if (!table) {
     return;
@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!form) {
     createForm(table);
+    form = document.querySelector('form');
   }
-  initFormInteractions(document.querySelector('form'), table);
+  initFormInteractions(form, table);
 });

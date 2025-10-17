@@ -1,34 +1,34 @@
 export const pushNotification = (
-  posTop,
-  posRight,
-  title,
-  description,
-  type,
+  posTop = 10,
+  posRight = 10,
+  title = 'Error',
+  description = 'An error occurred.',
+  type = 'error',
 ) => {
-  const allert = document.createElement('div');
+  const allertEl = document.createElement('div');
   const h2 = document.createElement('h2');
   const p = document.createElement('p');
 
-  allert.style.cssText = `
+  allertEl.style.cssText = `
   position: fixed;
   top: ${posTop}px;
   right: ${posRight}px;
   `;
 
-  allert.className = `notification ${type}`;
-  allert.setAttribute('data-qa', 'notification');
+  allertEl.className = `notification ${type}`;
+  allertEl.setAttribute('data-qa', 'notification');
 
   h2.textContent = title;
   h2.className = 'title';
 
   p.textContent = description;
 
-  allert.append(h2, p);
-  document.body.append(allert);
+  allertEl.append(h2, p);
+  document.body.append(allertEl);
 
   setTimeout(() => {
-    if (allert) {
-      allert.remove();
+    if (allertEl) {
+      allertEl.remove();
     }
   }, 2000);
 };

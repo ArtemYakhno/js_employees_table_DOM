@@ -15,7 +15,7 @@ export function initFormInteractions(form, table) {
       position: form.elements.position.value.trim(),
       office: form.elements.office.value.trim(),
       age: Number(form.elements.age.value.trim()),
-      salary: form.elements.salary.value.trim(),
+      salary: Number(form.elements.salary.value.trim()),
     };
 
     const checkResults = checkFormInputs(dataFromForm);
