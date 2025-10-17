@@ -20,7 +20,10 @@ export function sortColumnFactory(state) {
 
     const resolvedType = th.dataset.type || 'string';
 
-    if (!state.lastSortColumn || state.lastSortColumn !== th.textContent) {
+    if (
+      !state.lastSortColumn ||
+      state.lastSortColumn !== th.textContent.trim()
+    ) {
       state.lastSortDescending = true;
     } else {
       state.lastSortDescending = !state.lastSortDescending;

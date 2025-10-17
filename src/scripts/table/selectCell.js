@@ -21,16 +21,17 @@ export function selectCellFactory(state) {
     input.type = type;
     input.className = 'cell-input';
     input.name = colName;
-    input.value = prev;
 
     if (colName === 'salary') {
       const formatedSalary = convertToNumber(prev);
 
-      if (!Number.isNaN(formatedSalary)) {
+      if (Number.isNaN(formatedSalary)) {
         input.value = 0;
       } else {
         input.value = formatedSalary;
       }
+    } else {
+      input.value = prev;
     }
 
     state.activeInput = input;

@@ -3,11 +3,11 @@ import { pushNotification } from '../notification/pushNotification';
 import { convertToCurrency, clearErrorNotifications } from '../utils/utils';
 
 export function initFormInteractions(form, table) {
-  form.addEventListener('submit', (ev) => {
-    if (!form || !table) {
-      return;
-    }
+  if (!form || !table) {
+    return;
+  }
 
+  form.addEventListener('submit', (ev) => {
     ev.preventDefault();
 
     const dataFromForm = {

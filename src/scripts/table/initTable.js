@@ -4,6 +4,10 @@ import { sortColumnFactory } from './sorting.js';
 import { selectCellFactory } from './selectCell.js';
 
 export function initTableInteractions(table) {
+  if (!table) {
+    return;
+  }
+
   const tBody = table.querySelector('tbody');
   const tHead = table.querySelector('thead');
 

@@ -51,7 +51,7 @@ export function convertToCurrency(amount) {
 }
 
 export function clearErrorNotifications() {
-  const errorNotifications = document.querySelectorAll('.error');
+  const errorNotifications = document.querySelectorAll('.notification.error');
 
   if (errorNotifications.length === 0) {
     return;
