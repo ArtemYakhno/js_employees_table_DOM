@@ -6,7 +6,12 @@ import {
   validateSalary,
 } from '../validators/validators';
 
-import { convertToNumber } from '../utils/utils';
+import {
+  clearErrorNotifications,
+  convertToNumber,
+  convertToCurrency,
+} from '../utils/utils';
+import { pushNotification } from '../notification/pushNotification';
 
 export function selectCellFactory(state) {
   return function selectCell(cell, type, colName) {
@@ -16,26 +21,68 @@ export function selectCellFactory(state) {
     input.type = type;
     input.className = 'cell-input';
     input.name = colName;
-    input.value = prev;
+    input.value = colName === 'salary' ? convertToNumber(prev) : prev;
 
-    if (colName === 'salary') {
-      input.value = convertToNumber(prev);
-    }
     state.activeInput = input;
-
     cell.textContent = '';
     cell.appendChild(input);
-
     input.focus();
 
-    const save = () => {
-      const newValue = input.value.trim();
+    let canceled = false;
+    let isValid = true;
 
-      cell.textContent = newValue === '' ? prev : newValue;
-      state.activeInput = null;
+    const save = () => {
+      let newValue = input.value.trim();
+
+      if (newValue === '') {
+        cell.textContent = prev;
+        state.activeInput = null;
+
+        return;
+      }
+
+      let validationError = null;
+
+      switch (colName) {
+        case 'name':
+          validationError = validateFullName(newValue);
+          break;
+        case 'position':
+          validationError = validatePosition(newValue);
+          break;
+        case 'office':
+          validationError = validateOffice(newValue);
+          break;
+        case 'age':
+          validationError = validateAge(newValue);
+          break;
+        case 'salary':
+          validationError = validateSalary(newValue);
+
+          if (!validationError) {
+            newValue = convertToCurrency(newValue);
+          }
+          break;
+        default:
+          validationError = { title: 'Error', message: 'Unknown column' };
+      }
+
+      if (validationError) {
+        createNotification(validationError);
+        isValid = false;
+      }
+
+      if (isValid) {
+        cell.textContent = newValue;
+        canceled = true;
+        state.activeInput = null;
+      }
     };
+
     const cancel = () => {
+      canceled = true;
       cell.textContent = prev;
+      state.activeInput = null;
     };
 
     input.addEventListener('keydown', (ev) => {
@@ -47,6 +94,30 @@ export function selectCellFactory(state) {
         cancel();
       }
     });
-    input.addEventListener('blur', save);
+
+    input.addEventListener(
+      'blur',
+      () => {
+        setTimeout(() => {
+          if (!canceled) {
+            save();
+          }
+
+          if (!isValid) {
+            cancel();
+          }
+        }, 0);
+      },
+      { once: true },
+    );
+
+    input.addEventListener('change', () => {
+      isValid = true;
+    });
   };
+}
+
+function createNotification({ title, message } = {}) {
+  clearErrorNotifications();
+  pushNotification(10, 10, title, message, 'error');
 }

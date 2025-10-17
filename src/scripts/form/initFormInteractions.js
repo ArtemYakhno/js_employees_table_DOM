@@ -1,6 +1,6 @@
 import { checkFormInputs } from './checkFormInputs';
 import { pushNotification } from '../notification/pushNotification';
-import { convertToCurrency } from '../utils/utils';
+import { convertToCurrency, clearErrorNotifications } from '../utils/utils';
 
 export function initFormInteractions(form, table) {
   form.addEventListener('submit', (ev) => {
@@ -58,16 +58,4 @@ function addData({ fullName, position, office, age, salary } = {}, table) {
       'Notification should contain title and description.',
     'success',
   );
-}
-
-function clearErrorNotifications() {
-  const errorNotifications = document.querySelectorAll('.error');
-
-  if (!errorNotifications) {
-    return;
-  }
-
-  for (const notification of errorNotifications) {
-    notification.remove();
-  }
 }
