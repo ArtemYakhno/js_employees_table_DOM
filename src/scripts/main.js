@@ -18,12 +18,3 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   initFormInteractions(document.querySelector('form'), table);
 });
-
-export function validateOffice(office) {
-  if (!office) {
-    return {
-      title: 'Office',
-      message: 'Office field cannot be empty.',
-    };
-  }
-}

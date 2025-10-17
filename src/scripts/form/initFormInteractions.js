@@ -4,14 +4,18 @@ import { convertToCurrency, clearErrorNotifications } from '../utils/utils';
 
 export function initFormInteractions(form, table) {
   form.addEventListener('submit', (ev) => {
+    if (!form || !table) {
+      return;
+    }
+
     ev.preventDefault();
 
     const dataFromForm = {
-      fullName: form.elements.name.value,
-      position: form.elements.position.value,
-      office: form.elements.office.value,
-      age: form.elements.age.value,
-      salary: form.elements.salary.value,
+      fullName: form.elements.name.value.trim(),
+      position: form.elements.position.value.trim(),
+      office: form.elements.office.value.trim(),
+      age: Number(form.elements.age.value.trim()),
+      salary: form.elements.salary.value.trim(),
     };
 
     const checkResults = checkFormInputs(dataFromForm);
@@ -19,7 +23,6 @@ export function initFormInteractions(form, table) {
     if (checkResults.length > 0) {
       handleError(checkResults);
     } else {
-      clearErrorNotifications();
       addData(dataFromForm, table);
       form.reset();
     }
@@ -27,6 +30,8 @@ export function initFormInteractions(form, table) {
 }
 
 function handleError(errors) {
+  clearErrorNotifications();
+
   for (let i = 0; i < errors.length; i++) {
     pushNotification(
       i * 140 + 10,

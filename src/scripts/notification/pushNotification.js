@@ -28,7 +28,7 @@ export const pushNotification = (
 
   setTimeout(() => {
     if (allert) {
-      allert.style.display = 'none';
+      allert.remove();
     }
   }, 2000);
 };

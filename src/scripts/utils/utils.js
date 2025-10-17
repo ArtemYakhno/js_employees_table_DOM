@@ -49,7 +49,7 @@ export function convertToCurrency(amount) {
 export function clearErrorNotifications() {
   const errorNotifications = document.querySelectorAll('.error');
 
-  if (!errorNotifications.length === 0) {
+  if (errorNotifications.length === 0) {
     return;
   }
 
