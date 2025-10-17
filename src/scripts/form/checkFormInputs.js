@@ -1,8 +1,10 @@
-import { validateFullName } from '../validators/validateFullName';
-import { validatePosition } from '../validators/validatePosition';
-import { validateOffice } from '../validators/validateOffice';
-import { validateAge } from '../validators/validateAge';
-import { validateSalary } from '../validators/validateSalary';
+import {
+  validateFullName,
+  validatePosition,
+  validateOffice,
+  validateAge,
+  validateSalary,
+} from '../validators/validators';
 
 export const checkFormInputs = ({
   fullName,

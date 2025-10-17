@@ -81,8 +81,8 @@ export function initTableInteractions(table) {
     const colIndex = cell.cellIndex;
     const th = table.tHead.rows[0]?.cells[colIndex];
     const type = th?.getAttribute('data-type') || 'string';
-    const thName = th?.textContent.toLowerCase() || '';
+    const colName = th?.textContent.toLowerCase() || 'default';
 
-    selectCell(cell);
+    selectCell(cell, type, colName);
   });
 }

@@ -1,31 +1,34 @@
-import { validateFullName } from '../validators/validateFullName';
-import { validatePosition } from '../validators/validatePosition';
-import { validateOffice } from '../validators/validateOffice';
-import { validateAge } from '../validators/validateAge';
-import { validateSalary } from '../validators/validateSalary';
+import {
+  validateFullName,
+  validatePosition,
+  validateOffice,
+  validateAge,
+  validateSalary,
+} from '../validators/validators';
+
+import { convertToNumber } from '../utils/utils';
 
 export function selectCellFactory(state) {
-  return function selectCell(cell) {
-    if (cell.querySelector('input.cell-input')) {
-      return;
-    }
-
+  return function selectCell(cell, type, colName) {
     const prev = cell.textContent?.trim() ?? '';
-
-    cell.textContent = '';
-
     const input = document.createElement('input');
 
-    input.type = 'text';
+    input.type = type;
     input.className = 'cell-input';
+    input.name = colName;
     input.value = prev;
+
+    if (colName === 'salary') {
+      input.value = convertToNumber(prev);
+    }
     state.activeInput = input;
 
+    cell.textContent = '';
     cell.appendChild(input);
 
     input.focus();
 
-    const commit = () => {
+    const save = () => {
       const newValue = input.value.trim();
 
       cell.textContent = newValue === '' ? prev : newValue;
@@ -37,13 +40,13 @@ export function selectCellFactory(state) {
 
     input.addEventListener('keydown', (ev) => {
       if (ev.key === 'Enter') {
-        commit();
+        save();
       }
 
       if (ev.key === 'Escape') {
         cancel();
       }
     });
-    input.addEventListener('blur', commit);
+    input.addEventListener('blur', save);
   };
 }
